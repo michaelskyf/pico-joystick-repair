@@ -33,8 +33,8 @@
 
 typedef struct ATTRIBUTE_PACKED {
     uint8_t buttons;
-    uint8_t xAxis;
-    uint8_t yAxis;
+    uint16_t xAxis;
+    uint16_t yAxis;
 } HID_JoystickReport_Data_t;
 
 #endif /* USB_DESCRIPTORS_H_ */

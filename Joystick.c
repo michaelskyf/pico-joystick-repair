@@ -12,10 +12,9 @@
 
 void hid_task(void) {
     // Poll every 10ms
-    const uint32_t interval_ms = 100;
+    const uint32_t interval_ms = 10;
     static uint32_t start_ms = 0;
-    static uint8_t button = 0;
-    static HID_JoystickReport_Data_t report = {1, 0, 0};
+    static HID_JoystickReport_Data_t report = {0, 0, 0};
 
     if ((board_millis() - start_ms) < interval_ms) return; // not enough time
     start_ms = board_millis() + interval_ms;
@@ -30,8 +29,8 @@ void hid_task(void) {
     /*------------- Joystick -------------*/
     uint32_t result = adc_read();
     if (tud_hid_ready()) {
-        report.xAxis = result;           // 0=left, 128=center, 255=right
-        report.yAxis = 128;           // 0=up, 128=center, 255=down
+        report.xAxis = 1 << 11;
+        report.yAxis = result;
 
         tud_hid_report(0x00, &report, sizeof(report));
     }
